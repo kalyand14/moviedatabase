@@ -50,7 +50,7 @@ object Versions {
 
     val androidXFragment = "1.2.4"
 
-    val retrofit = "2.3.0"
+    val retrofit = "2.4.0"
     val retrofit_moshiConverter = "2.4.0"
     val retrofit_okhttp_logging_interceptor = "4.0.0"
     val retrofit_rxjavaAdapter = "2.2.0"
@@ -62,7 +62,6 @@ object Versions {
     val timber = "4.5.1"
 
     val leakCanary = "1.5"
-
 }
 
 
@@ -78,12 +77,13 @@ object ToolsDeps {
 
 object ApplicationDeps {
     // Kotlin
-    val kotlin = "org.jetbrains.kotlin:kotlin-stdlib-jdk7:${Versions.kotlin}"
+    val kotlin = "org.jetbrains.kotlin:kotlin-stdlib:${Versions.kotlin}"
     val kotlinCoroutines = "org.jetbrains.kotlinx:kotlinx-coroutines-core:${Versions.coroutines}"
     val kotlinCoroutinesAndroid =
         "org.jetbrains.kotlinx:kotlinx-coroutines-android:${Versions.coroutines}"
 
     // Core
+    val androidXCore = "androidx.core:core-ktx:${Versions.androidXAppCompat}"
     val androidXAppCompat = "androidx.appcompat:appcompat:${Versions.androidXAppCompat}"
     val androidXConstraintLayout =
         "androidx.constraintlayout:constraintlayout:${Versions.androidXConstraintLayout}"
@@ -114,6 +114,11 @@ object ApplicationDeps {
         "androidx.lifecycle:lifecycle-runtime-ktx:${Versions.androidXLifecycle}"
     val lifecycle_livedata =
         "androidx.lifecycle:lifecycle-livedata-ktx:${Versions.androidXLifecycle}"
+
+    //Retrofit
+    val retrofit = "com.squareup.retrofit2:retrofit:${Versions.retrofit}"
+    val retrofit_moshiConverter =
+        "com.squareup.retrofit2:converter-moshi:${Versions.retrofit_moshiConverter}"
 }
 
 

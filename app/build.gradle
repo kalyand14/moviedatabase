@@ -3,17 +3,15 @@ apply plugin: 'kotlin-android'
 apply plugin: 'kotlin-android-extensions'
 
 android {
-    compileSdkVersion 30
-    buildToolsVersion "30.0.0"
+    buildToolsVersion Versions.build_buildTools
+    compileSdkVersion Versions.build_compileSdk
 
     defaultConfig {
         applicationId "com.android.omdb"
-        minSdkVersion 21
-        targetSdkVersion 30
-        versionCode 1
-        versionName "1.0"
-
+        minSdkVersion Versions.build_minSdk
+        targetSdkVersion Versions.build_targetSdk
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+        vectorDrawables.useSupportLibrary = true
     }
 
     buildTypes {
@@ -25,11 +23,16 @@ android {
 }
 
 dependencies {
-    implementation fileTree(dir: "libs", include: ["*.jar"])
-    implementation "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
-    implementation 'androidx.core:core-ktx:1.1.0'
-    implementation 'androidx.appcompat:appcompat:1.1.0'
+    implementation ApplicationDeps.kotlin
+    implementation ApplicationDeps.kotlinCoroutines
+    implementation ApplicationDeps.kotlinCoroutinesAndroid
+    implementation ApplicationDeps.androidXAppCompat
+    implementation ApplicationDeps.androidXCore
+    implementation ApplicationDeps.retrofit
+    implementation ApplicationDeps.retrofit_moshiConverter
+
     testImplementation 'junit:junit:4.12'
+
     androidTestImplementation 'androidx.test.ext:junit:1.1.1'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.2.0'
 
