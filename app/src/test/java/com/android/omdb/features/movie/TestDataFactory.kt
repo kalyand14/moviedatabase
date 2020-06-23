@@ -38,7 +38,7 @@ class TestDataFactory {
             search: List<MovieSearchResult.MovieSearchItem?> = getMovieSearchList()
         ) = MovieSearchResult(
             totalResults = totalResults,
-            search = search,
+            searchResults = search,
             response = "",
             error = ""
         )

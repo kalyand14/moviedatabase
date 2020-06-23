@@ -5,12 +5,11 @@ import android.view.View
 import androidx.appcompat.app.ActionBar
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.Observer
+import com.android.omdb.R
 import com.android.omdb.core.extension.viewBinding
 import com.android.omdb.core.functional.ResourceStatus
 import com.android.omdb.databinding.ActivityMovieDetailBinding
-import com.android.omdb.features.movie.presentation.MovieViewModel
 import com.bumptech.glide.Glide
-import com.bumptech.glide.load.engine.DiskCacheStrategy
 import com.google.android.material.appbar.AppBarLayout
 import com.google.android.material.appbar.AppBarLayout.OnOffsetChangedListener
 import org.koin.androidx.viewmodel.ext.android.viewModel
@@ -21,21 +20,27 @@ class MovieDetailActivity : AppCompatActivity() {
     private val binding by viewBinding(ActivityMovieDetailBinding::inflate)
     private val movieDetailViewModel: MovieViewModel by viewModel()
 
-    val titleid: String = "tt2166834"
-    val title: String = "Batman: The Dark Knight Returns, Part 2"
-    val poster: String =
-        "https://m.media-amazon.com/images/M/MV5BYTEzMmE0ZDYtYWNmYi00ZWM4LWJjOTUtYTE0ZmQyYWM3ZjA0XkEyXkFqcGdeQXVyNTA4NzY1MzY@._V1_SX300.jpg"
+    lateinit var titleid: String
+    lateinit var title: String
+    lateinit var poster: String
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(binding.root)
         showUpButton()
-        loadBackdropImage()
-        setTitle()
         setCollapsingToolbarTitle()
-        setupObserver()
 
-        movieDetailViewModel.getMovieDetail(titleid)
+        intent?.let {
+            val args = MovieDetailActivityArgs.fromIntent(intent)
+            title = args.title
+            poster = args.poster
+            movieDetailViewModel.getMovieDetail(args.titleId)
+
+            setTitle()
+            loadBackdropImage()
+            setupObserver()
+        }
+
     }
 
     private fun showUpButton() {
@@ -48,12 +53,9 @@ class MovieDetailActivity : AppCompatActivity() {
     }
 
     private fun loadBackdropImage() {
-        Glide.with(this).load(poster)
-            .centerCrop()
-            .thumbnail(0.5f)
-            .placeholder(com.android.omdb.R.drawable.ic_launcher_background)
-            .centerCrop()
-            .diskCacheStrategy(DiskCacheStrategy.ALL)
+        Glide.with(this)
+            .load(poster)
+            .error(R.drawable.photo)
             .into(binding.ivBackdrop)
     }
 
@@ -110,7 +112,7 @@ class MovieDetailActivity : AppCompatActivity() {
                         binding.tvWriter.text = it?.writer
                         binding.tvActor.text = it?.actors
 
-                        binding.tvVoteCount.text =  it?.imdbvotes
+                        binding.tvVoteCount.text = it?.imdbvotes
                         binding.tvVoteAverage.text = it?.imdbrating
 
                     }

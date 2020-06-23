@@ -17,6 +17,10 @@
 
     <!-- Size of the loading indicator in the activity_detail -->
     <dimen name="size_detail_loading_indicator">26dp</dimen>
+
+    <!-- Size of the loading indicator in the activity_detail -->
+    <dimen name="size_list_loading_indicator">60dp</dimen>
+
     <!-- Size of play circle ImageView in the activity_detail -->
     <dimen name="size_play_image">60dp</dimen>
 
@@ -44,4 +48,7 @@
     <!-- Default screen margins, per the Android Design guidelines. -->
     <dimen name="fab_margin">16dp</dimen>
     <dimen name="design_fab_image_size" tools:override="true">48dp</dimen>
+    
+    <!-- Padding for the TextView in movie_list_item -->
+    <dimen name="padding_list_text">4dp</dimen>
 </resources>

@@ -8,12 +8,24 @@
             <LayoutPositions>
               <option name="myPositions">
                 <map>
+                  <entry key="movieDetailActivity">
+                    <value>
+                      <LayoutPositions>
+                        <option name="myPosition">
+                          <Point>
+                            <option name="x" value="460" />
+                            <option name="y" value="-521" />
+                          </Point>
+                        </option>
+                      </LayoutPositions>
+                    </value>
+                  </entry>
                   <entry key="movieDetailFragment">
                     <value>
                       <LayoutPositions>
                         <option name="myPosition">
                           <Point>
-                            <option name="x" value="448" />
+                            <option name="x" value="1049" />
                             <option name="y" value="50" />
                           </Point>
                         </option>
@@ -25,13 +37,13 @@
                       <LayoutPositions>
                         <option name="myPosition">
                           <Point>
-                            <option name="x" value="50" />
-                            <option name="y" value="50" />
+                            <option name="x" value="-25" />
+                            <option name="y" value="-508" />
                           </Point>
                         </option>
                         <option name="myPositions">
                           <map>
-                            <entry key="action_movieListFragment_to_movieDetailFragment">
+                            <entry key="action_movieListFragment_to_movieDetailActivity">
                               <value>
                                 <LayoutPositions />
                               </value>
