@@ -1,23 +1,46 @@
 package com.android.omdb.features.movie.presentation.movielist
 
+import android.os.Handler
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ProgressBar
 import androidx.recyclerview.widget.RecyclerView
 import com.android.omdb.R
+import com.android.omdb.core.AppConstants.VIEW_TYPE_ITEM
+import com.android.omdb.core.AppConstants.VIEW_TYPE_LOADING
 import com.android.omdb.features.movie.data.model.MovieSearchResult
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.engine.DiskCacheStrategy
 import kotlinx.android.synthetic.main.list_item_movie.view.*
 
-class MovieAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
+class MovieAdapter(private val movieList: ArrayList<MovieSearchResult.MovieSearchItem?>) :
+    RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
-    private var movieList = ArrayList<MovieSearchResult.MovieSearchItem?>()
 
-    companion object {
-        private const val VIEW_TYPE_ITEM = 0
-        private const val VIEW_TYPE_LOADING = 1
+    fun addData(newMoviesList: ArrayList<MovieSearchResult.MovieSearchItem?>) {
+        this.movieList.addAll(newMoviesList)
+        notifyDataSetChanged()
+    }
+
+    fun getItemAtPosition(position: Int): MovieSearchResult.MovieSearchItem? {
+        return movieList[position]
+    }
+
+    fun addLoadingView() {
+        //Add loading item
+        Handler().post {
+            movieList.add(null)
+            notifyItemInserted(movieList.size - 1)
+        }
+    }
+
+    fun removeLoadingView() {
+        //Remove loading item
+        if (movieList.size != 0) {
+            movieList.removeAt(movieList.size - 1)
+            notifyItemRemoved(movieList.size)
+        }
     }
 
     class DataViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
@@ -66,21 +89,14 @@ class MovieAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
         }
     }
 
-    fun setData(newMoviesList: ArrayList<MovieSearchResult.MovieSearchItem?>?) {
-        if (newMoviesList != null) {
-            if (movieList.isNotEmpty())
-                movieList.removeAt(movieList.size - 1)
-            movieList.clear()
-            movieList.addAll(newMoviesList)
-        } else {
-            movieList.add(newMoviesList)
-        }
-        notifyDataSetChanged()
-    }
-
-    fun getData() = movieList
-
     override fun getItemViewType(position: Int): Int {
         return if (movieList[position] == null) VIEW_TYPE_LOADING else VIEW_TYPE_ITEM
+    }
+
+    fun loadMoreData() {
+        //Add the Loading View
+        addLoadingView()
+        //Create the loadMoreItemsCells Arraylist
+        loadMoreItemsCells = ArrayList()
     }
 }

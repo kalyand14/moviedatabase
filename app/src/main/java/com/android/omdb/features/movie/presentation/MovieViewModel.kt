@@ -26,11 +26,6 @@ class MovieViewModel(private val repository: MovieRepository) : ViewModel() {
     val stateMovieDetail: MutableLiveData<Resource<MovieDetail>> =
         MutableLiveData<Resource<MovieDetail>>()
 
-    init {
-        stateLoadMoreData.value = false
-    }
-
-
     fun searchMovie(title: String) {
         this.pageIndex = 1
         this.totalMovies = 0
@@ -48,11 +43,7 @@ class MovieViewModel(private val repository: MovieRepository) : ViewModel() {
         if (pageIndex == 1) {
             movieList.clear()
             stateMovieList.value = Resource.loading()
-        } else {
-            if (movieList.isNotEmpty() && movieList.last() == null)
-                movieList.removeAt(movieList.size - 1)
         }
-
 
         viewModelScope.launch {
             when (val result = repository.getMovieSearchResult(title, pageIndex)) {
@@ -84,15 +75,5 @@ class MovieViewModel(private val repository: MovieRepository) : ViewModel() {
         }
     }
 
-    fun checkForLoadMoreItems(
-        visibleItemCount: Int,
-        totalItemCount: Int,
-        firstVisibleItemPosition: Int
-    ) {
-        if (!stateLoadMoreData.value!! && (totalItemCount < totalMovies)) {
-            if (visibleItemCount + firstVisibleItemPosition >= totalItemCount && firstVisibleItemPosition >= 0) {
-                stateLoadMoreData.value = true
-            }
-        }
-    }
+
 }
