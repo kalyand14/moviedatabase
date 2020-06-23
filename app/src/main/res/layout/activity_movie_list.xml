@@ -10,6 +10,7 @@
         android:id="@+id/rv_movie"
         android:layout_width="0dp"
         android:layout_height="0dp"
+        android:visibility="visible"
         android:background="@color/blue_grey_dark"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -22,11 +23,13 @@
         style="@style/EmptyTextStyle"
         android:drawablePadding="@dimen/padding_activity"
         android:textAlignment="center"
+        android:visibility="gone"
         android:textColor="@color/color_offline"
-        app:layout_constraintBottom_toBottomOf="@+id/rv_movie"
+        android:text="@string/no_movie_found_error"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="@+id/rv_movie"
-        app:layout_constraintTop_toTopOf="@+id/rv_movie" />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
 
     <ProgressBar
@@ -34,10 +37,10 @@
         android:layout_width="@dimen/size_list_loading_indicator"
         android:layout_height="@dimen/size_list_loading_indicator"
         android:layout_gravity="center"
-        app:layout_constraintBottom_toBottomOf="@+id/rv_movie"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="@+id/rv_movie"
-        app:layout_constraintTop_toTopOf="@+id/rv_movie"
-        android:visibility="visible" />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        android:visibility="gone" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

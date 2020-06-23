@@ -52,13 +52,13 @@ class MovieListActivity : AppCompatActivity() {
         movieSearchViewModel.searchPagedListLiveData.observe(this, Observer { pagedList ->
             adapter.submitList(pagedList)
         })
-        movieSearchViewModel.paginationStatusLiveData.observe(this, Observer {
+      /*  movieSearchViewModel.paginationStatusLiveData.observe(this, Observer {
             when (it) {
                 PaginationStatus.Loading -> showLoading()
                 PaginationStatus.NotEmpty -> showList()
                 else -> showError()
             }
-        })
+        })*/
     }
 
     private fun showLoading() {
