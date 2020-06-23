@@ -2,7 +2,7 @@
 <resources>
     <color name="colorPrimary">@color/card_background</color>
     <color name="colorPrimaryDark">@color/blue_grey_dark</color>
-    <color name="colorAccent">#8BC34A</color>
+    <color name="colorAccent">#ff1744</color>
 
     <!-- Text color when it is offline -->
     <color name="color_offline">#A3A3A3</color>
@@ -25,10 +25,10 @@
     <color name="blue_grey_700">#455a64</color>
 
     <!-- Color for the tab -->
-    <color name="color_indicator">#8bc34a</color>
-    <color name="color_tab_selected_text">#8bc34a</color>
+    <color name="color_indicator">@color/colorAccent</color>
+    <color name="color_tab_selected_text">@color/colorAccent</color>
     <color name="color_tab_text">#c1d5e0</color>
 
     <!-- Color for the fab -->
-    <color name="color_fab">#ff1744</color>
+    <color name="color_fab">@color/colorAccent</color>
 </resources>

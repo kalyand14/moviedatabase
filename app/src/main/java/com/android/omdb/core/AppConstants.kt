@@ -17,4 +17,6 @@ object AppConstants {
 
     /** True when including edge  */
     const val GRID_INCLUDE_EDGE = true
+
+
 }

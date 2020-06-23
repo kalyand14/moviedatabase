@@ -22,6 +22,7 @@ class MovieSearchDataSource(
     companion object {
         const val PREVIOUS_PAGE_KEY_ONE = 1
         const val NEXT_PAGE_KEY_TWO = 2
+        const val TRUE = "True"
     }
 
     override fun loadInitial(
@@ -32,16 +33,19 @@ class MovieSearchDataSource(
             statusLiveData.postValue(PaginationStatus.Loading)
             when (val result = repository.getMovieSearchResult(currentQuery, 1)) {
                 is Either.Right -> {
+                    if (result.right.response == TRUE) {
 
-                    statusLiveData.postValue(
-                        if (result.right.searchResults.isEmpty()) PaginationStatus.Empty else PaginationStatus.NotEmpty
-                    )
-
-                    callback.onResult(
-                        result.right.searchResults,
-                        PREVIOUS_PAGE_KEY_ONE,
-                        NEXT_PAGE_KEY_TWO
-                    )
+                        statusLiveData.postValue(
+                            if (result.right.searchResults.isEmpty()) PaginationStatus.Empty else PaginationStatus.NotEmpty
+                        )
+                        callback.onResult(
+                            result.right.searchResults,
+                            PREVIOUS_PAGE_KEY_ONE,
+                            NEXT_PAGE_KEY_TWO
+                        )
+                    } else {
+                        handleError()
+                    }
                 }
                 is Either.Left -> {
                     handleError()
