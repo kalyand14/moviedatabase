@@ -6,7 +6,7 @@ import retrofit2.Response
 import retrofit2.http.GET
 import retrofit2.http.Query
 
-interface OmdbApi {
+interface OmdbApiService {
     @GET("?type=movie")
     suspend fun getMovieSearchResult(
         @Query(value = "s") searchTitle: String,
@@ -15,6 +15,6 @@ interface OmdbApi {
 
     @GET("?plot=full")
     suspend fun getMovieDetail(
-        @Query(value = "t") title: String
+        @Query(value = "t") titleId: String
     ): Response<MovieDetail>
 }

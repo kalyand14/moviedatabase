@@ -1,0 +1,5 @@
+<resources>
+
+    <dimen name="margin4">4dp</dimen>
+    <dimen name="text_margin">16dp</dimen>
+</resources>

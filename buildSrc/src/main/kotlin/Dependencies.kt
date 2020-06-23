@@ -2,7 +2,7 @@ import org.gradle.api.JavaVersion
 
 object Versions {
 
-    val build_minSdk = 23
+    val build_minSdk = 24
     val build_compileSdk = 29
     val build_targetSdk = 29
     val build_javaVersion = JavaVersion.VERSION_1_8
@@ -14,7 +14,7 @@ object Versions {
     val androidXAppCompat = "1.1.0"
     val androidXBiomertric = "1.0.0"
     val androidXRecyclerview = "1.0.0"
-    val androidXNavigation = "2.2.0-alpha01"
+    val androidXNavigation = "2.2.0"
     val androidXConstraintLayout = "1.1.3"
     val androidXMaterial = "1.3.0-alpha01"
     val androidXRoom = "2.2.2"
@@ -50,7 +50,8 @@ object Versions {
 
     val androidXFragment = "1.2.4"
 
-    val retrofit = "2.4.0"
+    val retrofit = "2.6.0"
+    val okhttp3 = "4.7.2"
     val retrofit_moshiConverter = "2.4.0"
     val retrofit_okhttp_logging_interceptor = "4.0.0"
     val retrofit_rxjavaAdapter = "2.2.0"
@@ -62,6 +63,10 @@ object Versions {
     val timber = "4.5.1"
 
     val leakCanary = "1.5"
+
+    val glide = "4.11.0"
+
+    val koin = "2.1.6"
 }
 
 
@@ -104,21 +109,38 @@ object ApplicationDeps {
     val androidXRoomCompiler = "androidx.room:room-compiler:${Versions.androidXRoom}"
 
     // Navigation
+    val androidXNavigationFragment =
+        "androidx.navigation:navigation-fragment-ktx:${Versions.androidXNavigation}"
+    val androidXNavigationUi =
+        "androidx.navigation:navigation-ui-ktx:${Versions.androidXNavigation}"
+
 
     // KTX
     //val ktx_fragment = "androidx.fragment:fragment-ktx:$fragmentKtxVersion"
     val androidXRoomKtx = "androidx.room:room-ktx:${Versions.androidXRoom}"
+
     val lifecycleViewmodel =
         "androidx.lifecycle:lifecycle-viewmodel-ktx:${Versions.androidXLifecycle}"
     val lifecycleRuntime =
         "androidx.lifecycle:lifecycle-runtime-ktx:${Versions.androidXLifecycle}"
-    val lifecycle_livedata =
+    val lifecycleLivedata =
         "androidx.lifecycle:lifecycle-livedata-ktx:${Versions.androidXLifecycle}"
+    val lifecycleCommon = "androidx.lifecycle:lifecycle-common-java8:${Versions.androidXLifecycle}"
 
     //Retrofit
     val retrofit = "com.squareup.retrofit2:retrofit:${Versions.retrofit}"
-    val retrofit_moshiConverter =
+    val okhttp3 = "com.squareup.okhttp3:okhttp:${Versions.okhttp3}"
+    val okhttp3LoggingInterceptor = "com.squareup.okhttp3:logging-interceptor:${Versions.okhttp3}"
+
+    val retrofitMoshiconverter =
         "com.squareup.retrofit2:converter-moshi:${Versions.retrofit_moshiConverter}"
+
+    //Glide
+    val glide = "com.github.bumptech.glide:glide:${Versions.glide}"
+
+    //Koin
+    val koinViewModel = "org.koin:koin-androidx-viewmodel:${Versions.koin}"
+
 }
 
 
@@ -143,6 +165,8 @@ object JvmUnitTestDeps {
 
     val mockk = "io.mockk:mockk:${Versions.mockk}"
     val kluent = "org.amshove.kluent:kluent:${Versions.kluent}"
+
+    val retrofit = "com.squareup.retrofit2:retrofit-mock:${Versions.retrofit}"
 }
 
 object AndroidUnitTestDeps {

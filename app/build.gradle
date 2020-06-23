@@ -12,6 +12,9 @@ android {
         targetSdkVersion Versions.build_targetSdk
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
         vectorDrawables.useSupportLibrary = true
+
+        buildConfigField 'String', 'BASE_URL', "\"https://www.omdbapi.com/\""
+        buildConfigField 'String', 'API_KEY', "\"b9bd48a6\""
     }
 
     buildTypes {
@@ -20,18 +23,53 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
         }
     }
+
+    viewBinding {
+        enabled = true
+    }
+
+    kotlinOptions {
+        jvmTarget = JavaVersion.VERSION_1_8
+    }
 }
 
 dependencies {
+    implementation ApplicationDeps.androidXMaterial
     implementation ApplicationDeps.kotlin
     implementation ApplicationDeps.kotlinCoroutines
     implementation ApplicationDeps.kotlinCoroutinesAndroid
     implementation ApplicationDeps.androidXAppCompat
     implementation ApplicationDeps.androidXCore
-    implementation ApplicationDeps.retrofit
-    implementation ApplicationDeps.retrofit_moshiConverter
 
-    testImplementation 'junit:junit:4.12'
+    implementation ApplicationDeps.androidXConstraintLayout
+    implementation ApplicationDeps.androidXLegacySupport
+    implementation ApplicationDeps.androidXNavigationFragment
+    implementation ApplicationDeps.androidXNavigationUi
+    implementation ApplicationDeps.androidXCard
+
+    implementation ApplicationDeps.lifecycleRuntime
+    implementation ApplicationDeps.lifecycleViewmodel
+    implementation ApplicationDeps.lifecycleLivedata
+    implementation ApplicationDeps.lifecycleCommon
+
+    implementation ApplicationDeps.retrofit
+    implementation ApplicationDeps.okhttp3
+    implementation ApplicationDeps.okhttp3LoggingInterceptor
+    implementation ApplicationDeps.retrofitMoshiconverter
+
+    implementation ApplicationDeps.glide
+
+    implementation ApplicationDeps.koinViewModel
+
+    implementation DevelopmentDeps.timber
+
+    testImplementation JvmUnitTestDeps.junit
+    testImplementation JvmUnitTestDeps.mockk
+    testImplementation JvmUnitTestDeps.archCoreTest
+    testImplementation JvmUnitTestDeps.kotlinCoroutinesAndroid
+    testImplementation JvmUnitTestDeps.kotlinCoroutinesTest
+    testImplementation JvmUnitTestDeps.truth
+    testImplementation JvmUnitTestDeps.retrofit
 
     androidTestImplementation 'androidx.test.ext:junit:1.1.1'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.2.0'
