@@ -9,14 +9,26 @@
         android:id="@+id/movieListFragment"
         android:name="com.android.omdb.features.movie.presentation.movielist.MovieListFragment"
         android:label="fragment_movie_list"
-        tools:layout="@layout/fragment_movie_list" >
+        tools:layout="@layout/fragment_movie_list">
         <action
             android:id="@+id/action_movieListFragment_to_movieDetailFragment"
-            app:destination="@id/movieDetailFragment" />
+            app:destination="@id/movieDetailFragment"
+            app:popUpTo="@id/movieListFragment" />
+
     </fragment>
     <fragment
         android:id="@+id/movieDetailFragment"
         android:name="com.android.omdb.features.movie.presentation.moviedetail.MovieDetailFragment"
         android:label="fragment_movie_detail"
-        tools:layout="@layout/fragment_movie_detail" />
+        tools:layout="@layout/fragment_movie_detail">
+        <argument
+            android:name="title"
+            app:argType="string" />
+        <argument
+            android:name="poster"
+            app:argType="string" />
+        <argument
+            android:name="titleId"
+            app:argType="string" />
+    </fragment>
 </navigation>

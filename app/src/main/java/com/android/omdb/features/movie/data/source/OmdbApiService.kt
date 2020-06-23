@@ -15,6 +15,6 @@ interface OmdbApiService {
 
     @GET("?plot=full")
     suspend fun getMovieDetail(
-        @Query(value = "t") titleId: String
+        @Query(value = "i") titleId: String
     ): Response<MovieDetail>
 }

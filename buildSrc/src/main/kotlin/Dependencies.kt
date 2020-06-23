@@ -29,8 +29,8 @@ object Versions {
     val androidXTestTruth = "1.0"
 
 
-    val gradleandroid = "3.6.3"
-    val kotlin = "1.3.61"
+    val gradleandroid = "4.0.0"
+    val kotlin = "1.3.72"
     val gradleversions = "0.21.0"
 
     val androidXCard = "1.0.0"

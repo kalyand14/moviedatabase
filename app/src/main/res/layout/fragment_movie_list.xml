@@ -13,7 +13,7 @@
 
             <com.google.android.material.appbar.MaterialToolbar
                 android:id="@+id/tlb_main"
-                style="@style/Widget.App.Toolbar"
+                style="@style/AppTheme.AppBarOverlay"
                 android:layout_width="match_parent"
                 android:layout_height="?attr/actionBarSize" />
 

@@ -1,9 +1,12 @@
 package com.android.omdb.features.movie.presentation.movielist
 
+import android.content.Intent
 import android.os.Handler
 import android.view.View
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
+import androidx.navigation.NavDirections
+import androidx.navigation.findNavController
 import androidx.recyclerview.widget.*
 import com.android.omdb.R
 import com.android.omdb.core.extension.viewBinding
@@ -12,6 +15,7 @@ import com.android.omdb.core.view.RecyclerItemClickListener
 import com.android.omdb.databinding.FragmentMovieListBinding
 import com.android.omdb.features.movie.data.model.MovieSearchResult
 import com.android.omdb.features.movie.presentation.MovieViewModel
+import com.android.omdb.features.movie.presentation.moviedetail.MovieDetailActivity
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
 
@@ -53,14 +57,18 @@ class MovieListFragment : Fragment(R.layout.fragment_movie_list) {
                                 val searchItem = movieAdapter.getData()[position]
                                 searchItem?.let {
 
-                                    /* val intent =
+                                     val intent =
                                          Intent(
-                                             applicationContext,
-                                             MovieDetailScrollingActivity::class.java
+                                             requireContext(),
+                                             MovieDetailActivity::class.java
                                          )
-                                     intent.putExtra(AppConstant.INTENT_POSTER, it.poster)
-                                     intent.putExtra(AppConstant.INTENT_TITLE, it.title)
-                                     startActivity(intent)*/
+                                    /* intent.putExtra(AppConstant.INTENT_POSTER, it.poster)
+                                     intent.putExtra(AppConstant.INTENT_TITLE, it.title)*/
+                                     startActivity(intent)
+
+                                   /* val action = MovieListFragmentDirections.actionMovieListFragmentToMovieDetailFragment(it.title, it.poster, it.imdbId)
+                                    view.findNavController().navigate(action)*/
+
                                 }
 
                             }
