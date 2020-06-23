@@ -13,8 +13,11 @@ android {
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
         vectorDrawables.useSupportLibrary = true
 
+
+        buildConfigField 'String', 'YOUTUBE_URL', "\"https://www.youtube.com/results?search_query=\""
         buildConfigField 'String', 'BASE_URL', "\"https://www.omdbapi.com/\""
-        buildConfigField 'String', 'API_KEY', "\"b9bd48a6\""
+        buildConfigField 'String', 'API_KEY', "\"4e4b89ff\""
+        //b9bd48a6
     }
 
     buildTypes {

@@ -19,4 +19,5 @@ object AppConstants {
     const val GRID_INCLUDE_EDGE = true
 
 
+    const val TRAILER = "Trailer"
 }

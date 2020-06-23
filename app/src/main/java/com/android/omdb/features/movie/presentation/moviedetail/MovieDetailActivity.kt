@@ -1,14 +1,20 @@
 package com.android.omdb.features.movie.presentation.moviedetail
 
+import android.content.Intent
+import android.net.Uri
 import android.os.Bundle
 import android.view.View
+import android.view.View.VISIBLE
 import androidx.appcompat.app.ActionBar
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.Observer
+import com.android.omdb.BuildConfig
 import com.android.omdb.R
+import com.android.omdb.core.AppConstants.TRAILER
 import com.android.omdb.core.extension.viewBinding
 import com.android.omdb.core.functional.ResourceStatus
 import com.android.omdb.databinding.ActivityMovieDetailBinding
+import com.android.omdb.features.movie.data.model.MovieDetail
 import com.bumptech.glide.Glide
 import com.google.android.material.appbar.AppBarLayout
 import com.google.android.material.appbar.AppBarLayout.OnOffsetChangedListener
@@ -20,7 +26,6 @@ class MovieDetailActivity : AppCompatActivity() {
     private val binding by viewBinding(ActivityMovieDetailBinding::inflate)
     private val movieDetailViewModel: MovieViewModel by viewModel()
 
-    lateinit var titleid: String
     lateinit var title: String
     lateinit var poster: String
 
@@ -29,6 +34,7 @@ class MovieDetailActivity : AppCompatActivity() {
         setContentView(binding.root)
         showUpButton()
         setCollapsingToolbarTitle()
+
 
         intent?.let {
             val args = MovieDetailActivityArgs.fromIntent(intent)
@@ -57,6 +63,17 @@ class MovieDetailActivity : AppCompatActivity() {
             .load(poster)
             .error(R.drawable.photo)
             .into(binding.ivBackdrop)
+    }
+
+    private fun attachLaunchTrailer(movieDetail: MovieDetail?) {
+        movieDetail?.let {
+            val videoUrl =
+                "${BuildConfig.YOUTUBE_URL}${movieDetail.title}+${movieDetail.year}+$TRAILER"
+            binding.fab.visibility = VISIBLE
+            binding.fab.setOnClickListener {
+                launchTrailer(videoUrl)
+            }
+        }
     }
 
 
@@ -115,6 +132,8 @@ class MovieDetailActivity : AppCompatActivity() {
                         binding.tvVoteCount.text = it?.imdbvotes
                         binding.tvVoteAverage.text = it?.imdbrating
 
+                        attachLaunchTrailer(it)
+
                     }
                 }
                 ResourceStatus.LOADING -> {
@@ -135,5 +154,12 @@ class MovieDetailActivity : AppCompatActivity() {
 
     private fun dismissProgressDialog() {
         binding.pbDetailLoadingIndicator.visibility = View.GONE
+    }
+
+    private fun launchTrailer(videoUrl: String) {
+        val intent = Intent(Intent.ACTION_VIEW, Uri.parse(videoUrl))
+        if (intent.resolveActivity(this.packageManager) != null) {
+            startActivity(intent)
+        }
     }
 }
