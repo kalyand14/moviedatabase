@@ -122,10 +122,15 @@
                 <!-- Favorite button to mark a movie as a Favorite or UnFavorite -->
                 <com.google.android.material.floatingactionbutton.FloatingActionButton
                     android:id="@+id/fab"
+                    android:padding="0dp"
+                    android:scaleType="fitXY"
+                    app:borderWidth="0dp"
+                    app:useCompatPadding="true"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_margin="@dimen/margin_activity"
                     app:backgroundTint="@color/color_fab"
+                    android:src="@drawable/play_circle"
                     app:layout_constraintBottom_toBottomOf="@+id/frame"
                     app:layout_constraintRight_toRightOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/frame" />
@@ -359,7 +364,6 @@
                         app:layout_constraintStart_toEndOf="@+id/tv_actor_label"
                         app:layout_constraintTop_toTopOf="@+id/tv_actor_label"
                         tools:text="Craig T. Nelson, Holly Hunter, Sara Vowell" />
-
 
 
                 </androidx.constraintlayout.widget.ConstraintLayout>

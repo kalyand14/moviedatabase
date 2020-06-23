@@ -1,4 +1,4 @@
-<resources>
+<resources xmlns:tools="http://schemas.android.com/tools">
 
     <dimen name="margin4">4dp</dimen>
     <dimen name="text_margin">16dp</dimen>
@@ -41,4 +41,7 @@
     <!-- Size of ImageView in fragment info-->
     <dimen name="size_person_image">18dp</dimen>
     <dimen name="size_star_image">36dp</dimen>
+    <!-- Default screen margins, per the Android Design guidelines. -->
+    <dimen name="fab_margin">16dp</dimen>
+    <dimen name="design_fab_image_size" tools:override="true">48dp</dimen>
 </resources>
