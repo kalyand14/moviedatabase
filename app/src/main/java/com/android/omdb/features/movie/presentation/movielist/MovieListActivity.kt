@@ -17,6 +17,7 @@ import androidx.core.view.MenuItemCompat
 import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.GridLayoutManager
 import com.android.omdb.R
+import com.android.omdb.core.AppConstants.DEFAULT_SEARCH
 import com.android.omdb.core.AppConstants.GRID_SPAN_COUNT
 import com.android.omdb.core.extension.viewBinding
 import com.android.omdb.databinding.ActivityMovieListBinding
@@ -42,6 +43,7 @@ class MovieListActivity : AppCompatActivity() {
         setContentView(binding.root)
         initAdapter()
         setupObserver()
+        query(DEFAULT_SEARCH)
     }
 
     private fun query(query: String?) {

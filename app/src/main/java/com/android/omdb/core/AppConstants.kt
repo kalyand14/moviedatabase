@@ -18,6 +18,7 @@ object AppConstants {
     /** True when including edge  */
     const val GRID_INCLUDE_EDGE = true
 
-
     const val TRAILER = "Trailer"
+
+    const val DEFAULT_SEARCH = "Marvel"
 }
