@@ -62,8 +62,10 @@ class MovieSearchDataSource(
         scope.launch {
             when (val result = repository.getMovieSearchResult(currentQuery, params.key)) {
                 is Either.Right -> {
-                    val nextPage = currentPage + 1
-                    callback.onResult(result.right.searchResults, nextPage)
+                    if (result.right.response == TRUE) {
+                        val nextPage = currentPage + 1
+                        callback.onResult(result.right.searchResults, nextPage)
+                    }
                 }
                 is Either.Left -> {
                     handleError()
