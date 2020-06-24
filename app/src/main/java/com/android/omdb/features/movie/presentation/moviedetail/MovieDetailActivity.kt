@@ -111,6 +111,14 @@ class MovieDetailActivity : AppCompatActivity() {
         return true
     }
 
+    private fun setRuntime(runtime: String?) {
+        runtime?.let {
+            val totalminutes = runtime.replace(" min", "").toInt()
+            val hours = totalminutes / 60
+            val minutes = totalminutes % 60
+            binding.tvRuntime.text = "${hours}h ${minutes}m"
+        }
+    }
 
     private fun setupObserver() {
         movieDetailViewModel.stateMovieDetail.observe(this, Observer {
@@ -121,7 +129,7 @@ class MovieDetailActivity : AppCompatActivity() {
                     //showErrorLayout(false)
                     it?.data.let {
 
-                        binding.tvRuntime.text = it?.runtime
+                        setRuntime(it?.runtime)
                         binding.tvGenre.text = it?.genre
                         binding.tvOverview.text = it?.plot
 
