@@ -1,5 +1,5 @@
 # Omdb Poster App
-
+  This app uses the API from omdbapi.com
 # Libraries
 - Android Architecture Components
   - Paging
