@@ -3,7 +3,7 @@ package com.android.omdb.features.movie.presentation.moviedetail
 import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
-import android.view.View
+import android.view.View.GONE
 import android.view.View.VISIBLE
 import androidx.appcompat.app.ActionBar
 import androidx.appcompat.app.AppCompatActivity
@@ -124,9 +124,6 @@ class MovieDetailActivity : AppCompatActivity() {
         movieDetailViewModel.stateMovieDetail.observe(this, Observer {
             when (it.status) {
                 ResourceStatus.SUCCESS -> {
-                    //dismissProgressDialog()
-                    //showDetails(true)
-                    //showErrorLayout(false)
                     it?.data.let {
 
                         setRuntime(it?.runtime)
@@ -141,26 +138,36 @@ class MovieDetailActivity : AppCompatActivity() {
                         binding.tvScore.text = it?.metascore
                         binding.tvVote.text = it?.imdbvotes
                         binding.tvPopularity.text = "N/A"
+
+                        showProgressDialog(false)
+                        showErrorLayout(false)
+                        showDetails(true)
                     }
                 }
                 ResourceStatus.LOADING -> {
-                    showProgressDialog()
-                    //showErrorLayout(false)
-                    //showDetails(false)
+                    showProgressDialog(true)
+                    showErrorLayout(true)
+                    showDetails(false)
                 }
                 ResourceStatus.ERROR -> {
-                    //showError()
+                    showProgressDialog(false)
+                    showErrorLayout(true)
+                    showDetails(false)
                 }
             }
         })
     }
 
-    private fun showProgressDialog() {
-        binding.pbDetailLoadingIndicator.visibility = View.VISIBLE
+    private fun showErrorLayout(display: Boolean) {
+        binding.clEmptyViewContainer.visibility = if (display) VISIBLE else GONE
     }
 
-    private fun dismissProgressDialog() {
-        binding.pbDetailLoadingIndicator.visibility = View.GONE
+    private fun showDetails(display: Boolean) {
+        binding.svMovieDetailContent.visibility = if (display) VISIBLE else GONE
+    }
+
+    private fun showProgressDialog(display: Boolean) {
+        binding.clProgressContainer.visibility = if (display) VISIBLE else GONE
     }
 
     private fun launchTrailer(videoUrl: String) {
