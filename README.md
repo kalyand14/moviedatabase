@@ -3,7 +3,6 @@
 # Libraries
 - Android Architecture Components
   - Paging
-  - Room
   - ViewModel
   - LiveData
 - Android View Binding
