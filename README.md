@@ -1,5 +1,16 @@
 # Omdb Poster App
 
+# Libraries
+- Android Architecture Components
+  - Paging
+  - Room
+  - ViewModel
+  - LiveData
+- Android View Binding
+- Retrofit for REST api communication
+- Glide for image loading
+- Koin for dependency injection
+
 # Screenshots
 <table>
   <tr>
