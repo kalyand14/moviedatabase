@@ -1,5 +1,5 @@
 # Omdb Poster App
-  This app uses the API from omdbapi.com
+  This app is developed by following clean architecure using MVVM pattern and it uses the API from omdbapi.com to get the movie details and poster images. 
 # Libraries
 - Android Architecture Components
   - Paging
@@ -7,6 +7,7 @@
   - ViewModel
   - LiveData
 - Android View Binding
+- Kotlin Coroutines
 - Retrofit for REST api communication
 - Glide for image loading
 - Koin for dependency injection
