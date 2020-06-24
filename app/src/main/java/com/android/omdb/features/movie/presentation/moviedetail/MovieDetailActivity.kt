@@ -125,32 +125,28 @@ class MovieDetailActivity : AppCompatActivity() {
             when (it.status) {
                 ResourceStatus.SUCCESS -> {
                     it?.data.let {
-
                         setRuntime(it?.runtime)
                         binding.tvGenre.text = it?.genre
                         binding.tvOverview.text = it?.plot
-
                         binding.tvDirector.text = it?.director
                         binding.tvWriter.text = it?.writer
                         binding.tvActor.text = it?.actors
-
                         binding.tvRating.text = it?.imdbrating
                         binding.tvScore.text = it?.metascore
                         binding.tvVote.text = it?.imdbvotes
                         binding.tvPopularity.text = "N/A"
-
-                        showProgressDialog(false)
+                        showLoading(false)
                         showErrorLayout(false)
                         showDetails(true)
                     }
                 }
                 ResourceStatus.LOADING -> {
-                    showProgressDialog(true)
+                    showLoading(true)
                     showErrorLayout(true)
                     showDetails(false)
                 }
                 ResourceStatus.ERROR -> {
-                    showProgressDialog(false)
+                    showLoading(false)
                     showErrorLayout(true)
                     showDetails(false)
                 }
@@ -166,7 +162,7 @@ class MovieDetailActivity : AppCompatActivity() {
         binding.svMovieDetailContent.visibility = if (display) VISIBLE else GONE
     }
 
-    private fun showProgressDialog(display: Boolean) {
+    private fun showLoading(display: Boolean) {
         binding.clProgressContainer.visibility = if (display) VISIBLE else GONE
     }
 

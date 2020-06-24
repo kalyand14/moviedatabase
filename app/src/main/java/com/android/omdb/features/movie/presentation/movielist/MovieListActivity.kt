@@ -55,7 +55,14 @@ class MovieListActivity : AppCompatActivity() {
     private fun initAdapter() {
         adapter = MoviePagedListAdapter {
             val intent = Intent(this@MovieListActivity, MovieDetailActivity::class.java)
-            intent.putExtras(MovieDetailActivityArgs(it.title, it.poster, it.imdbId, it.year).toBundle())
+            intent.putExtras(
+                MovieDetailActivityArgs(
+                    it.title,
+                    it.poster,
+                    it.imdbId,
+                    it.year
+                ).toBundle()
+            )
             startActivity(intent)
         }
         val layoutManager = GridLayoutManager(this, GRID_SPAN_COUNT)
@@ -70,29 +77,35 @@ class MovieListActivity : AppCompatActivity() {
         })
         movieSearchViewModel.paginationStatusLiveData.observe(this, Observer {
             when (it) {
-                PaginationStatus.Loading -> showLoading()
-                PaginationStatus.NotEmpty -> showList()
-                else -> showError()
+                PaginationStatus.Loading -> {
+                    showLoading(true)
+                    showErrorLayout(false)
+                    showDetails(false)
+                }
+                PaginationStatus.NotEmpty -> {
+                    showLoading(false)
+                    showErrorLayout(false)
+                    showDetails(true)
+                }
+                else -> {
+                    showLoading(false)
+                    showErrorLayout(true)
+                    showDetails(false)
+                }
             }
         })
     }
 
-    private fun showLoading() {
-        binding.pbListLoadingIndicator.visibility = VISIBLE
-        binding.tvEmpty.visibility = GONE
-        binding.rvMovie.visibility = GONE
+    private fun showErrorLayout(display: Boolean) {
+        binding.tvEmpty.visibility = if (display) VISIBLE else GONE
     }
 
-    private fun showError() {
-        binding.pbListLoadingIndicator.visibility = GONE
-        binding.tvEmpty.visibility = VISIBLE
-        binding.rvMovie.visibility = GONE
+    private fun showDetails(display: Boolean) {
+        binding.rvMovie.visibility = if (display) VISIBLE else GONE
     }
 
-    private fun showList() {
-        binding.pbListLoadingIndicator.visibility = GONE
-        binding.tvEmpty.visibility = GONE
-        binding.rvMovie.visibility = VISIBLE
+    private fun showLoading(display: Boolean) {
+        binding.pbListLoadingIndicator.visibility = if (display) VISIBLE else GONE
     }
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
@@ -104,7 +117,6 @@ class MovieListActivity : AppCompatActivity() {
                 return true
             }
         })
-
         val searchPlate =
             searchView.findViewById(androidx.appcompat.R.id.search_src_text) as EditText
         searchPlate.hint = "Search"
@@ -116,24 +128,17 @@ class MovieListActivity : AppCompatActivity() {
                 android.R.color.transparent
             )
         )
-
         searchView.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
             override fun onQueryTextSubmit(newText: String?): Boolean {
-                // do your logic here
-                //Toast.makeText(applicationContext, query, Toast.LENGTH_SHORT).show()
                 query(newText)
                 return false
             }
 
             override fun onQueryTextChange(newText: String?): Boolean {
-                //Toast.makeText(applicationContext, newText, Toast.LENGTH_SHORT).show()
-                //query(newText)
                 return false
             }
         })
-
-        val searchManager =
-            getSystemService(Context.SEARCH_SERVICE) as SearchManager
+        val searchManager = getSystemService(Context.SEARCH_SERVICE) as SearchManager
         searchView.setSearchableInfo(searchManager.getSearchableInfo(componentName))
         return super.onCreateOptionsMenu(menu)
     }
