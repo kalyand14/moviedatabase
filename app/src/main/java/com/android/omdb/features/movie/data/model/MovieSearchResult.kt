@@ -13,7 +13,7 @@ data class MovieSearchResult(
     var totalResults: String,
 
     @field:Json(name = "Search")
-    var search: ArrayList<MovieSearchItem?>
+    var searchResults: List<MovieSearchItem?>
 
 ) {
     data class MovieSearchItem(
@@ -24,7 +24,7 @@ data class MovieSearchResult(
         var year: String,
 
         @field:Json(name = "imdbID")
-        var imdbID: String,
+        var imdbId: String,
 
         @field:Json(name = "Poster")
         var poster: String,
