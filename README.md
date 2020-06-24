@@ -1,3 +1,4 @@
+[![Build Status](https://travis-ci.org/kalyand14/moviedatabase.svg?branch=master)](https://travis-ci.org/kalyand14/moviedatabase)
 # Omdb Poster App
   This app is developed by following clean architecure using MVVM pattern and it uses the API from omdbapi.com to get the movie details and poster images. 
 # Libraries

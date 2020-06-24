@@ -6,7 +6,7 @@ object Versions {
     val build_compileSdk = 29
     val build_targetSdk = 29
     val build_javaVersion = JavaVersion.VERSION_1_8
-    val build_buildTools = "28.0.3"
+    val build_buildTools = "29.0.3"
 
     val androidXAnnotations = "1.1.0"
     val androidXLegacySupport = "1.0.0"

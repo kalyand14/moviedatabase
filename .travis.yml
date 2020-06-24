@@ -1,0 +1,61 @@
+language: android
+dist: trusty
+jdk:
+  - oraclejdk8
+# Use the Travis Container-Based Infrastructure
+
+env:
+  global:
+    - ANDROID_BUILD_API=29
+    - ANDROID_TEST_API=22
+    - ANDROID_BUILD_TOOLS_VERSION=29.0.3
+    - ANDROID_ABI=armeabi-v7a
+    - ANDROID_TAG=google_apis
+    - ADB_INSTALL_TIMEOUT=20 # minutes (2 minutes by default)
+
+android:
+  components:
+    - tools
+    - platform-tools
+    - build-tools-$ANDROID_BUILD_TOOLS_VERSION
+    - android-$ANDROID_BUILD_API
+    - android-$ANDROID_TEST_API
+    # For Google APIs
+    - addon-google_apis-google-$ANDROID_BUILD_API
+    # Google Play Services
+    - extra-google-google_play_services
+    # Support library
+    - extra-android-support
+    # Latest artifacts in local repository
+    - extra-google-m2repository
+    - extra-android-m2repository
+    - android-sdk-license-.+
+    - '.+'
+    # Specify at least one system image
+    - sys-img-armeabi-v7a-google_apis-$ANDROID_TEST_API
+    - sys-img-armeabi-v7a-android-$ANDROID_TEST_API
+
+# list of directories to Cache
+
+before_install:
+  - yes | sdkmanager "platforms;android-29"
+
+licenses:
+  - 'android-sdk-preview-license-.+'
+  - 'android-sdk-license-.+'
+  - 'google-gdk-license-.+'
+
+before_script:
+  - chmod +x gradlew
+
+script:
+   - ./gradlew assembleDebug
+
+before_cache:
+  - rm -f  $HOME/.gradle/caches/modules-2/modules-2.lock
+  - rm -fr $HOME/.gradle/caches/*/plugin-resolution/
+cache:
+  directories:
+    - $HOME/.gradle/caches/
+    - $HOME/.gradle/wrapper/
+    - $HOME/.android/build-cache
