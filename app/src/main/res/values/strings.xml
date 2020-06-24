@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">MovieDataBase</string>
+    <string name="app_name">Omdb Poster</string>
 
     <string name="title_activity_movie_list">Movie list</string>
     <string name="title_activity_movie_detail">Movie Detail</string>
