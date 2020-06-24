@@ -31,13 +31,14 @@ class MovieDetailActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(binding.root)
         showUpButton()
-        setCollapsingToolbarTitle()
+
 
         intent?.let {
             val args = MovieDetailActivityArgs.fromIntent(intent)
             title = args.title
             movieDetailViewModel.getMovieDetail(args.titleId)
             setTitle(title)
+            setCollapsingToolbarTitle()
             loadBackdropImage(args.poster)
             setReleasYear(args.year)
             setFabListener(args.year, args.year)
@@ -58,6 +59,7 @@ class MovieDetailActivity : AppCompatActivity() {
 
     private fun setTitle(title: String) {
         binding.tvDetailTitle.text = title
+        binding.collapsingToolbarLayout.title = " "
     }
 
     private fun loadBackdropImage(poster: String) {
@@ -96,7 +98,7 @@ class MovieDetailActivity : AppCompatActivity() {
                     isShow = true
                 } else if (isShow) {
                     // Otherwise hide the title
-                    binding.collapsingToolbarLayout.title = ""
+                    binding.collapsingToolbarLayout.title = " "
                     isShow = false
                 }
             }
@@ -114,7 +116,7 @@ class MovieDetailActivity : AppCompatActivity() {
         movieDetailViewModel.stateMovieDetail.observe(this, Observer {
             when (it.status) {
                 ResourceStatus.SUCCESS -> {
-                    dismissProgressDialog()
+                    //dismissProgressDialog()
                     //showDetails(true)
                     //showErrorLayout(false)
                     it?.data.let {

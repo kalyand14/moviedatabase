@@ -17,9 +17,10 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:fitsSystemWindows="true"
+            app:title=" "
             app:collapsedTitleTextAppearance="@style/TextAppearance.AppCompat.Widget.ActionBar.Title.Inverse"
             app:contentScrim="@color/colorPrimary"
-            app:expandedTitleTextAppearance="@style/TextAppearance.AppCompat.Widget.ActionBar.Title.Inverse"
+            app:expandedTitleTextAppearance="@android:color/transparent"
             app:layout_scrollFlags="scroll|exitUntilCollapsed">
 
             <androidx.constraintlayout.widget.ConstraintLayout
@@ -97,14 +98,26 @@
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/tv_release_year" />
 
+
+                <androidx.constraintlayout.widget.Guideline
+                    android:id="@+id/guideline"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    app:layout_constraintGuide_percent="0.63" />
+
                 <TextView
                     android:id="@+id/tv_genre"
                     style="@style/BasicTextStyle"
                     android:layout_marginStart="@dimen/padding_activity"
                     android:layout_marginTop="8dp"
+                    app:layout_constraintEnd_toStartOf="@+id/guideline"
                     android:layout_marginBottom="@dimen/padding_activity"
+                    app:layout_constrainedWidth="true"
+                    android:scrollHorizontally="false"
                     android:textColor="@color/blue_grey_200_light"
                     app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintLeft_toRightOf="@+id/tv_runtime"
                     app:layout_constraintTop_toBottomOf="@+id/vw_divider"
                     tools:text="Action, Adventure, Animation, Family" />
 
