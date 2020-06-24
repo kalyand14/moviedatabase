@@ -7,13 +7,15 @@ import androidx.navigation.NavArgs
 data class MovieDetailActivityArgs(
     val title: String,
     val poster: String,
-    val titleId: String
+    val titleId: String,
+    val year: String
 ) : NavArgs {
     fun toBundle(): Bundle {
         val result = Bundle()
         result.putString("title", this.title)
         result.putString("poster", this.poster)
         result.putString("titleId", this.titleId)
+        result.putString("year", this.year)
         return result
     }
 
@@ -48,7 +50,16 @@ data class MovieDetailActivityArgs(
             } else {
                 throw IllegalArgumentException("Required argument \"titleId\" is missing and does not have an android:defaultValue")
             }
-            return MovieDetailActivityArgs(__title, __poster, __titleId)
+            val __year: String?
+            if (intent.hasExtra("year")) {
+                __year = intent.getStringExtra("year")
+                if (__year == null) {
+                    throw IllegalArgumentException("Argument \"year\" is marked as non-null but was passed a null value.")
+                }
+            } else {
+                throw IllegalArgumentException("Required argument \"year\" is missing and does not have an android:defaultValue")
+            }
+            return MovieDetailActivityArgs(__title, __poster, __titleId, __year)
         }
     }
 }

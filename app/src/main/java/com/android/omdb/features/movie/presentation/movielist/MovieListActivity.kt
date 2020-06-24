@@ -55,7 +55,7 @@ class MovieListActivity : AppCompatActivity() {
     private fun initAdapter() {
         adapter = MoviePagedListAdapter {
             val intent = Intent(this@MovieListActivity, MovieDetailActivity::class.java)
-            intent.putExtras(MovieDetailActivityArgs(it.title, it.poster, it.imdbId).toBundle())
+            intent.putExtras(MovieDetailActivityArgs(it.title, it.poster, it.imdbId, it.year).toBundle())
             startActivity(intent)
         }
         val layoutManager = GridLayoutManager(this, GRID_SPAN_COUNT)

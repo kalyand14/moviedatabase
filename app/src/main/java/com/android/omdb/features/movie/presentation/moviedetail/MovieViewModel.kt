@@ -18,7 +18,7 @@ class MovieViewModel(private val repository: MovieRepository) : ViewModel() {
     fun getMovieDetail(titleId: String) {
         stateMovieDetail.value = Resource.loading()
         viewModelScope.launch {
-            delay(3000)
+            //delay(3000)
             when (val result = repository.getMovieDetail(titleId)) {
                 is Either.Right -> {
                     stateMovieDetail.value = Resource.success(result.right)

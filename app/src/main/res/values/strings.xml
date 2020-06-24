@@ -31,6 +31,8 @@
     <string name="original_title">Original Title</string>
     <string name="view_all">View All</string>
     <string name="title_activity_movie_main">MovieMain</string>
+    <string name="popularity_label">Popularity</string>
+
     <!--
     This string is used for square devices and overridden by hello_world in
     values-round/strings.xml for round devices.

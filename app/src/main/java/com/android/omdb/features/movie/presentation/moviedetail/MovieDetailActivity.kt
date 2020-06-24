@@ -14,7 +14,6 @@ import com.android.omdb.core.AppConstants.TRAILER
 import com.android.omdb.core.extension.viewBinding
 import com.android.omdb.core.functional.ResourceStatus
 import com.android.omdb.databinding.ActivityMovieDetailBinding
-import com.android.omdb.features.movie.data.model.MovieDetail
 import com.bumptech.glide.Glide
 import com.google.android.material.appbar.AppBarLayout
 import com.google.android.material.appbar.AppBarLayout.OnOffsetChangedListener
@@ -26,8 +25,7 @@ class MovieDetailActivity : AppCompatActivity() {
     private val binding by viewBinding(ActivityMovieDetailBinding::inflate)
     private val movieDetailViewModel: MovieViewModel by viewModel()
 
-    lateinit var title: String
-    lateinit var poster: String
+    private lateinit var title: String
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -35,15 +33,14 @@ class MovieDetailActivity : AppCompatActivity() {
         showUpButton()
         setCollapsingToolbarTitle()
 
-
         intent?.let {
             val args = MovieDetailActivityArgs.fromIntent(intent)
             title = args.title
-            poster = args.poster
             movieDetailViewModel.getMovieDetail(args.titleId)
-
-            setTitle()
-            loadBackdropImage()
+            setTitle(title)
+            loadBackdropImage(args.poster)
+            setReleasYear(args.year)
+            setFabListener(args.year, args.year)
             setupObserver()
         }
 
@@ -58,28 +55,29 @@ class MovieDetailActivity : AppCompatActivity() {
         }
     }
 
-    private fun loadBackdropImage() {
+
+    private fun setTitle(title: String) {
+        binding.tvDetailTitle.text = title
+    }
+
+    private fun loadBackdropImage(poster: String) {
         Glide.with(this)
             .load(poster)
             .error(R.drawable.photo)
             .into(binding.ivBackdrop)
     }
 
-    private fun attachLaunchTrailer(movieDetail: MovieDetail?) {
-        movieDetail?.let {
-            val videoUrl =
-                "${BuildConfig.YOUTUBE_URL}${movieDetail.title}+${movieDetail.year}+$TRAILER"
-            binding.fab.visibility = VISIBLE
-            binding.fab.setOnClickListener {
-                launchTrailer(videoUrl)
-            }
-        }
+    private fun setReleasYear(year: String) {
+        binding.tvReleaseYear.text = year
     }
 
-
-    private fun setTitle() {
-        // Set title to the TextView
-        binding.tvDetailTitle.text = title
+    private fun setFabListener(title: String, year: String) {
+        val videoUrl =
+            "${BuildConfig.YOUTUBE_URL}${title}+${year}+$TRAILER"
+        binding.fab.visibility = VISIBLE
+        binding.fab.setOnClickListener {
+            launchTrailer(videoUrl)
+        }
     }
 
 
@@ -94,11 +92,11 @@ class MovieDetailActivity : AppCompatActivity() {
                 }
                 if (scrollRange + verticalOffset == 0) {
                     // Show title when a CollapsingToolbarLayout is fully collapse
-                    binding.collapsingToolbarLayout.setTitle(title)
+                    binding.collapsingToolbarLayout.title = title
                     isShow = true
                 } else if (isShow) {
                     // Otherwise hide the title
-                    binding.collapsingToolbarLayout.setTitle(" ")
+                    binding.collapsingToolbarLayout.title = ""
                     isShow = false
                 }
             }
@@ -120,7 +118,7 @@ class MovieDetailActivity : AppCompatActivity() {
                     //showDetails(true)
                     //showErrorLayout(false)
                     it?.data.let {
-                        binding.tvReleaseYear.text = it?.year
+
                         binding.tvRuntime.text = it?.runtime
                         binding.tvGenre.text = it?.genre
                         binding.tvOverview.text = it?.plot
@@ -129,11 +127,10 @@ class MovieDetailActivity : AppCompatActivity() {
                         binding.tvWriter.text = it?.writer
                         binding.tvActor.text = it?.actors
 
-                        binding.tvVoteCount.text = it?.imdbvotes
-                        binding.tvVoteAverage.text = it?.imdbrating
-
-                        attachLaunchTrailer(it)
-
+                        binding.tvRating.text = it?.imdbrating
+                        binding.tvScore.text = it?.metascore
+                        binding.tvVote.text = it?.imdbvotes
+                        binding.tvPopularity.text = "N/A"
                     }
                 }
                 ResourceStatus.LOADING -> {

@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="utf-8"?><!--https://medium.com/@loutry/guide-to-constraintlayout-407cd87bc013-->
 <androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
@@ -77,63 +77,88 @@
                     tools:text="movie title" />
 
                 <TextView
-                    android:id="@+id/tv_runtime"
+                    android:id="@+id/tv_release_year"
                     style="@style/BasicTextStyle"
                     android:paddingLeft="@dimen/padding_activity"
                     android:paddingRight="@dimen/padding_activity"
                     android:textColor="@color/blue_grey_light"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/tv_detail_title"
+                    tools:text="2018" />
+
+                <View
+                    android:id="@+id/vw_divider"
+                    android:layout_width="match_parent"
+                    android:layout_height="0.5dp"
+                    android:layout_marginTop="8dp"
+                    android:layout_marginBottom="8dp"
+                    android:background="@color/blue_grey_700"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/tv_release_year" />
+
+                <TextView
+                    android:id="@+id/tv_genre"
+                    style="@style/BasicTextStyle"
+                    android:layout_marginStart="@dimen/padding_activity"
+                    android:layout_marginTop="8dp"
+                    android:layout_marginBottom="@dimen/padding_activity"
+                    android:textColor="@color/blue_grey_200_light"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/vw_divider"
+                    tools:text="Action, Adventure, Animation, Family" />
+
+                <TextView
+                    android:id="@+id/tv_runtime"
+                    style="@style/BasicTextStyle"
+                    android:layout_marginStart="@dimen/padding_activity"
+                    android:layout_marginTop="8dp"
+                    android:layout_marginEnd="@dimen/padding_activity"
+                    android:layout_marginBottom="@dimen/padding_activity"
+                    android:textColor="@color/blue_grey_light"
+                    app:layout_constraintRight_toLeftOf="@+id/tv_rating"
+                    app:layout_constraintTop_toBottomOf="@+id/vw_divider"
                     tools:text="122 min" />
 
                 <TextView
-                    android:id="@+id/tv_release_year"
+                    android:id="@+id/tv_rating"
                     style="@style/BasicTextStyle"
-                    android:textColor="@color/blue_grey_light"
-                    app:layout_constraintLeft_toRightOf="@+id/tv_runtime"
-                    app:layout_constraintTop_toBottomOf="@+id/tv_detail_title"
-                    tools:text="2018" />
+                    android:layout_marginTop="8dp"
+                    android:layout_marginEnd="@dimen/padding_activity"
+                    android:drawableStart="@drawable/star"
+                    android:drawablePadding="@dimen/padding_activity_small"
+                    android:textColor="@color/blue_grey_200_light"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/vw_divider"
+                    tools:text="7.2" />
 
-                <FrameLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
+                <!-- ProgressBar to show the user content is loading -->
+                <ProgressBar
+                    android:id="@+id/pb_detail_loading_indicator"
+                    android:layout_width="@dimen/size_detail_loading_indicator"
+                    android:layout_height="@dimen/size_detail_loading_indicator"
+                    android:layout_gravity="center"
+                    android:layout_margin="@dimen/padding_activity"
+                    android:visibility="visible"
+                    app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/tv_runtime">
-
-                    <TextView
-                        android:id="@+id/tv_genre"
-                        style="@style/BasicTextStyle"
-                        android:paddingLeft="@dimen/padding_activity"
-                        android:paddingRight="@dimen/padding_activity"
-                        android:paddingBottom="@dimen/padding_activity_small"
-                        android:textColor="@color/blue_grey_200_light"
-                        tools:text="Action, Adventure, Animation, Family" />
-
-                    <!-- ProgressBar to show the user content is loading -->
-                    <ProgressBar
-                        android:id="@+id/pb_detail_loading_indicator"
-                        android:layout_width="@dimen/size_detail_loading_indicator"
-                        android:layout_height="@dimen/size_detail_loading_indicator"
-                        android:layout_gravity="center"
-                        android:visibility="visible" />
-
-                </FrameLayout>
+                    app:layout_constraintTop_toBottomOf="@+id/vw_divider" />
 
                 <!-- Favorite button to mark a movie as a Favorite or UnFavorite -->
                 <com.google.android.material.floatingactionbutton.FloatingActionButton
                     android:id="@+id/fab"
-                    android:padding="0dp"
-                    android:scaleType="fitXY"
-                    app:borderWidth="0dp"
-                    app:useCompatPadding="true"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_margin="@dimen/margin_activity"
-                    app:backgroundTint="@color/color_fab"
+                    android:padding="0dp"
+                    android:scaleType="fitXY"
                     android:src="@drawable/play_circle"
+                    app:backgroundTint="@color/color_fab"
+                    app:borderWidth="0dp"
                     app:layout_constraintBottom_toBottomOf="@+id/frame"
                     app:layout_constraintRight_toRightOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/frame" />
+                    app:layout_constraintTop_toBottomOf="@+id/frame"
+                    app:useCompatPadding="true" />
 
             </androidx.constraintlayout.widget.ConstraintLayout>
 
@@ -143,6 +168,7 @@
                 android:layout_height="?android:attr/actionBarSize"
                 android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
                 app:layout_collapseMode="pin" />
+
         </com.google.android.material.appbar.CollapsingToolbarLayout>
 
     </com.google.android.material.appbar.AppBarLayout>
@@ -199,83 +225,43 @@
                     android:layout_height="wrap_content">
 
                     <TextView
-                        android:id="@+id/tv_vote_average_label"
-                        style="@style/OverviewLabelStyle"
+                        android:id="@+id/tv_score"
+                        style="@style/BasicTextStyle"
+                        android:drawableTop="@drawable/ic_score"
+                        android:drawablePadding="@dimen/padding_activity_small"
                         android:paddingBottom="@dimen/padding_vote_average_label"
-                        android:text="@string/vote_average"
-                        app:layout_constraintBottom_toTopOf="@+id/iv_star"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toTopOf="parent" />
-
-                    <ImageView
-                        android:id="@+id/iv_star"
-                        android:layout_width="@dimen/size_star_image"
-                        android:layout_height="@dimen/size_star_image"
-                        android:contentDescription="@string/star_content_description"
-                        android:src="@drawable/star"
-                        app:layout_constraintBottom_toBottomOf="parent"
-                        app:layout_constraintEnd_toStartOf="@+id/tv_vote_average"
-                        app:layout_constraintHorizontal_bias="0.25"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toBottomOf="@+id/tv_vote_average_label"
-                        app:layout_constraintVertical_bias="0.0" />
-
-                    <TextView
-                        android:id="@+id/tv_vote_average"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginLeft="@dimen/margin_vote_average"
-                        android:fontFamily="@font/source_sans_pro_semi_bold"
+                        android:text="@string/popularity_label"
                         android:textColor="@android:color/white"
-                        android:textSize="20sp"
-                        app:layout_constraintBottom_toBottomOf="parent"
-                        app:layout_constraintEnd_toStartOf="@+id/guideline"
-                        app:layout_constraintLeft_toRightOf="@+id/iv_star"
-                        app:layout_constraintTop_toBottomOf="@+id/tv_vote_average_label"
+                        app:layout_constraintEnd_toStartOf="@+id/tv_vote"
+                        app:layout_constraintHorizontal_chainStyle="spread_inside"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent"
                         tools:text="6.8" />
 
                     <TextView
-                        android:id="@+id/tv_vote_ten"
+                        android:id="@+id/tv_vote"
                         style="@style/BasicTextStyle"
-                        android:layout_marginStart="@dimen/margin_vote_ten"
-                        android:layout_marginLeft="@dimen/margin_vote_ten"
-                        android:text="@string/ten"
-                        android:textColor="@android:color/white"
-                        app:layout_constraintBottom_toBottomOf="@+id/tv_vote_average"
-                        app:layout_constraintEnd_toStartOf="@id/tv_vote_count"
-                        app:layout_constraintHorizontal_bias="0.0"
-                        app:layout_constraintStart_toStartOf="@+id/guideline"
-                        app:layout_constraintTop_toTopOf="@+id/tv_vote_average"
-                        tools:text="/10" />
-
-                    <ImageView
-                        android:id="@+id/iv_person"
-                        android:layout_width="@dimen/size_person_image"
-                        android:layout_height="@dimen/size_person_image"
-                        android:contentDescription="@string/person_content_description"
-                        android:src="@drawable/person"
-                        app:layout_constraintBottom_toBottomOf="parent"
-                        app:layout_constraintEnd_toStartOf="@+id/tv_vote_count"
-                        app:layout_constraintTop_toBottomOf="@+id/tv_vote_average_label" />
-
-                    <TextView
-                        android:id="@+id/tv_vote_count"
-                        style="@style/BasicTextStyle"
-                        android:layout_marginEnd="@dimen/margin_vote_count"
-                        android:layout_marginRight="@dimen/margin_vote_count"
-                        android:textColor="@android:color/white"
-                        app:layout_constraintBottom_toBottomOf="@+id/iv_person"
-                        app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintTop_toTopOf="@+id/iv_person"
-                        app:layout_constraintVertical_bias="0.0"
-                        tools:text="9,314" />
-
-                    <androidx.constraintlayout.widget.Guideline
-                        android:id="@+id/guideline"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:orientation="vertical"
-                        app:layout_constraintGuide_percent="0.5" />
+                        android:drawableTop="@drawable/person"
+                        android:drawablePadding="@dimen/padding_activity_small"
+                        android:textColor="@android:color/white"
+                        app:layout_constraintEnd_toStartOf="@+id/tv_popularity"
+                        app:layout_constraintStart_toEndOf="@id/tv_score"
+                        app:layout_constraintTop_toTopOf="parent"
+                        tools:text="9,314" />
+
+                    <TextView
+                        android:id="@+id/tv_popularity"
+                        style="@style/BasicTextStyle"
+                        android:drawableTop="@drawable/ic_focus"
+                        android:drawablePadding="@dimen/padding_activity_small"
+                        android:textColor="@android:color/white"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toEndOf="@id/tv_vote"
+                        app:layout_constraintTop_toTopOf="parent"
+                        tools:text="N/A" />
+
 
                 </androidx.constraintlayout.widget.ConstraintLayout>
 
@@ -285,6 +271,7 @@
                 style="@style/CardViewStyle"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_marginBottom="0dp"
                 app:contentPadding="@dimen/padding_activity">
 
                 <androidx.constraintlayout.widget.ConstraintLayout
