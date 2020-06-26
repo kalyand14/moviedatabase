@@ -24,10 +24,10 @@ import kotlinx.coroutines.flow.onEach
 class MovieSearchViewModel(private val repository: MovieRepository) : ViewModel() {
 
     companion object {
-        const val INITIAL_LOAD_SIZE_HINT = 10
+        const val INITIAL_LOAD_SIZE_HINT = 20
         const val SEARCH_RESULT_LIMIT = 10
         private const val QUERY_DEBOUNCE = 500L
-        private const val PREFETCH_DISTANCE = 10
+        private const val PREFETCH_DISTANCE = 50
     }
 
     @ExperimentalCoroutinesApi
@@ -40,6 +40,7 @@ class MovieSearchViewModel(private val repository: MovieRepository) : ViewModel(
     private var searchDataSource: MovieSearchDataSource? = null
 
     private fun initializeSearchListLiveData(): LiveData<PagedList<MovieSearchResult.MovieSearchItem>> {
+
         val config = PagedList.Config.Builder()
             .setInitialLoadSizeHint(INITIAL_LOAD_SIZE_HINT)
             .setPageSize(SEARCH_RESULT_LIMIT)

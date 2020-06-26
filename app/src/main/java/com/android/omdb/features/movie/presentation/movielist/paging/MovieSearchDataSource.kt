@@ -20,8 +20,7 @@ class MovieSearchDataSource(
 ) : PageKeyedDataSource<Int, MovieSearchResult.MovieSearchItem>() {
 
     companion object {
-        const val PREVIOUS_PAGE_KEY_ONE = 1
-        const val NEXT_PAGE_KEY_TWO = 2
+        const val FIRST_PAGE = 1
         const val TRUE = "True"
     }
 
@@ -40,8 +39,8 @@ class MovieSearchDataSource(
                         )
                         callback.onResult(
                             result.right.searchResults,
-                            PREVIOUS_PAGE_KEY_ONE,
-                            NEXT_PAGE_KEY_TWO
+                            null,
+                            FIRST_PAGE + 1
                         )
                     } else {
                         handleError()

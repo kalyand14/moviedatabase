@@ -41,7 +41,7 @@ class MovieDetailActivity : AppCompatActivity() {
             setCollapsingToolbarTitle()
             loadBackdropImage(args.poster)
             setReleasYear(args.year)
-            setFabListener(args.year, args.year)
+            setFabListener(args.title, args.year)
             setupObserver()
         }
 
@@ -90,7 +90,7 @@ class MovieDetailActivity : AppCompatActivity() {
             var scrollRange = -1
             override fun onOffsetChanged(appBarLayout: AppBarLayout, verticalOffset: Int) {
                 if (scrollRange == -1) {
-                    scrollRange = appBarLayout.totalScrollRange
+                     scrollRange = appBarLayout.totalScrollRange
                 }
                 if (scrollRange + verticalOffset == 0) {
                     // Show title when a CollapsingToolbarLayout is fully collapse
