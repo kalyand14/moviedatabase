@@ -13,7 +13,7 @@ data class MovieSearchResult(
     var totalResults: String,
 
     @field:Json(name = "Search")
-    var searchResults: List<MovieSearchItem?>
+    var searchResults: List<MovieSearchItem>
 
 ) {
     data class MovieSearchItem(

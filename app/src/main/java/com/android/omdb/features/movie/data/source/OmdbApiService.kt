@@ -11,7 +11,7 @@ interface OmdbApiService {
     suspend fun getMovieSearchResult(
         @Query(value = "s") searchTitle: String,
         @Query(value = "page") pageIndex: Int
-    ): Response<MovieSearchResult>
+    ): MovieSearchResult
 
     @GET("?plot=full")
     suspend fun getMovieDetail(

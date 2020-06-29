@@ -31,7 +31,7 @@ class MovieDetailActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(binding.root)
         showUpButton()
-
+        setupObserver()
 
         intent?.let {
             val args = MovieDetailActivityArgs.fromIntent(intent)
@@ -42,7 +42,6 @@ class MovieDetailActivity : AppCompatActivity() {
             loadBackdropImage(args.poster)
             setReleasYear(args.year)
             setFabListener(args.title, args.year)
-            setupObserver()
         }
 
     }

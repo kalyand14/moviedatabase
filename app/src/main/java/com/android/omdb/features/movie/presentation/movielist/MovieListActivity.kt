@@ -7,14 +7,15 @@ import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
 import android.view.View
-import android.view.View.GONE
-import android.view.View.VISIBLE
 import android.widget.EditText
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.SearchView
 import androidx.core.content.ContextCompat
 import androidx.core.view.MenuItemCompat
-import androidx.lifecycle.Observer
+import androidx.core.view.isVisible
+import androidx.lifecycle.lifecycleScope
+import androidx.paging.LoadState
 import androidx.recyclerview.widget.GridLayoutManager
 import com.android.omdb.R
 import com.android.omdb.core.AppConstants.DEFAULT_SEARCH
@@ -23,10 +24,11 @@ import com.android.omdb.core.extension.viewBinding
 import com.android.omdb.databinding.ActivityMovieListBinding
 import com.android.omdb.features.movie.presentation.moviedetail.MovieDetailActivity
 import com.android.omdb.features.movie.presentation.moviedetail.MovieDetailActivityArgs
-import com.android.omdb.features.movie.presentation.movielist.paging.MoviePagedListAdapter
-import com.android.omdb.features.movie.presentation.movielist.paging.PaginationStatus
+import com.android.omdb.features.movie.presentation.movielist.paging.MoviePagedDataAdapter
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.FlowPreview
+import kotlinx.coroutines.flow.collectLatest
+import kotlinx.coroutines.launch
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
 
@@ -36,7 +38,8 @@ class MovieListActivity : AppCompatActivity() {
 
     private val binding by viewBinding(ActivityMovieListBinding::inflate)
     private val movieSearchViewModel: MovieSearchViewModel by viewModel()
-    private lateinit var adapter: MoviePagedListAdapter
+
+    private lateinit var adapter: MoviePagedDataAdapter
     private lateinit var searchView: SearchView
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -53,7 +56,7 @@ class MovieListActivity : AppCompatActivity() {
     }
 
     private fun initAdapter() {
-        adapter = MoviePagedListAdapter {
+        adapter = MoviePagedDataAdapter {
             val intent = Intent(this@MovieListActivity, MovieDetailActivity::class.java)
             intent.putExtras(
                 MovieDetailActivityArgs(
@@ -72,40 +75,33 @@ class MovieListActivity : AppCompatActivity() {
     }
 
     private fun setupObserver() {
-        movieSearchViewModel.searchPagedListLiveData.observe(this, Observer { pagedList ->
-            adapter.submitList(pagedList)
-        })
-        movieSearchViewModel.paginationStatusLiveData.observe(this, Observer {
-            when (it) {
-                PaginationStatus.Loading -> {
-                    showLoading(true)
-                    showErrorLayout(false)
-                    showDetails(false)
-                }
-                PaginationStatus.NotEmpty -> {
-                    showLoading(false)
-                    showErrorLayout(false)
-                    showDetails(true)
-                }
-                else -> {
-                    showLoading(false)
-                    showErrorLayout(true)
-                    showDetails(false)
-                }
+        lifecycleScope.launch {
+            movieSearchViewModel.flow.collectLatest { pagingData ->
+                adapter.submitData(pagingData)
             }
-        })
-    }
+        }
+        adapter.addLoadStateListener { loadState ->
+            // Only show the list if refresh succeeds.
+            binding.rvMovie.isVisible = loadState.refresh is LoadState.NotLoading
+            // Show loading spinner during initial load or refresh.
+            binding.pbListLoadingIndicator.isVisible = loadState.refresh is LoadState.Loading
+            // Show the retry state if initial load or refresh fails.
+            binding.tvEmpty.isVisible = loadState.refresh is LoadState.Error
 
-    private fun showErrorLayout(display: Boolean) {
-        binding.tvEmpty.visibility = if (display) VISIBLE else GONE
-    }
+            // Toast on any error, regardless of whether it came from RemoteMediator or PagingSource
+            val errorState = loadState.source.append as? LoadState.Error
+                ?: loadState.source.prepend as? LoadState.Error
+                ?: loadState.append as? LoadState.Error
+                ?: loadState.prepend as? LoadState.Error
+            errorState?.let {
+                Toast.makeText(
+                    this,
+                    "\uD83D\uDE28 ooops ${it.error}",
+                    Toast.LENGTH_LONG
+                ).show()
+            }
+        }
 
-    private fun showDetails(display: Boolean) {
-        binding.rvMovie.visibility = if (display) VISIBLE else GONE
-    }
-
-    private fun showLoading(display: Boolean) {
-        binding.pbListLoadingIndicator.visibility = if (display) VISIBLE else GONE
     }
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
@@ -144,7 +140,7 @@ class MovieListActivity : AppCompatActivity() {
     }
 
     override fun onBackPressed() {
-        if (!searchView.isIconified()) {
+        if (!searchView.isIconified) {
             searchView.onActionViewCollapsed();
         } else {
             super.onBackPressed();

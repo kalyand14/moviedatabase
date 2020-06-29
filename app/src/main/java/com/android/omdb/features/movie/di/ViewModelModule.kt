@@ -12,9 +12,13 @@ import org.koin.dsl.module
 @FlowPreview
 @ExperimentalCoroutinesApi
 val viewModelModule = module {
+
     viewModel { MovieViewModel(get()) }
+
     viewModel { MovieSearchViewModel(get()) }
+
     single<MovieRepository> {
         return@single MovieDataRepository(get())
     }
+
 }

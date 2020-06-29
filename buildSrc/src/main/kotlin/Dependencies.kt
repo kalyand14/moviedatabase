@@ -19,7 +19,7 @@ object Versions {
     val androidXMaterial = "1.3.0-alpha01"
     val androidXRoom = "2.2.2"
     val androidXLifecycle = "2.2.0"
-    val androidXPaging = "2.1.1"
+    val androidXPaging = "3.0.0-alpha02"
 
     val junit = "4.12"
     val androidXTestEspresso = "3.1.0"

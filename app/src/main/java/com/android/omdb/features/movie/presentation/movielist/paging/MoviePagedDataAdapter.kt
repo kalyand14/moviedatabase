@@ -2,7 +2,7 @@ package com.android.omdb.features.movie.presentation.movielist.paging
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
-import androidx.paging.PagedListAdapter
+import androidx.paging.PagingDataAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.android.omdb.R
 import com.android.omdb.databinding.RecyclerItemMovieBinding
@@ -10,9 +10,9 @@ import com.android.omdb.features.movie.data.model.MovieSearchResult
 import com.bumptech.glide.Glide
 
 
-class MoviePagedListAdapter(
+class MoviePagedDataAdapter(
     private val onItemClick: (queryItem: MovieSearchResult.MovieSearchItem) -> Unit
-) : PagedListAdapter<MovieSearchResult.MovieSearchItem, MoviePagedListAdapter.DataViewHolder>(
+) : PagingDataAdapter<MovieSearchResult.MovieSearchItem, MoviePagedDataAdapter.DataViewHolder>(
     DiffUtilCallBack()
 ) {
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): DataViewHolder {

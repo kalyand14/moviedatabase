@@ -1,5 +1,6 @@
 package com.android.omdb.features.movie.data.repository
 
+import com.android.omdb.core.exception.Failure
 import com.android.omdb.core.functional.Either
 import com.android.omdb.features.movie.TestDataFactory
 import com.android.omdb.features.movie.data.source.MovieDataSource
@@ -46,6 +47,22 @@ class MovieDataRepositoryTest {
         coVerify { dataSource.getMovieDetail(TestDataFactory.titleId) }
         Truth.assertThat(result.isRight).isTrue()
         Truth.assertThat(result.fold({ }, { it })).isEqualTo(TestDataFactory.getMovieDetail())
+    }
+
+    @Test
+    fun givenMovieDetail_whenFetch_shouldReturnFailure() = dispatcher.runBlockingTest {
+
+        // Assume
+        coEvery { dataSource.getMovieDetail(TestDataFactory.titleId) } returns ( Either.Left(Failure.DataError("error")) )
+
+        // Act
+        val result = repository.getMovieDetail(TestDataFactory.titleId)
+
+        // Assert
+        coVerify { dataSource.getMovieDetail(TestDataFactory.titleId) }
+
+        Truth.assertThat(result.isLeft).isTrue()
+        Truth.assertThat(result.fold({ it}, {  })).isEqualTo(Failure.DataError("error"))
     }
 
 
