@@ -10,7 +10,7 @@ android {
         applicationId "com.android.omdb"
         minSdkVersion Versions.build_minSdk
         targetSdkVersion Versions.build_targetSdk
-        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+        testInstrumentationRunner "com.android.omdb.MockTestRunner"
         vectorDrawables.useSupportLibrary = true
 
 
@@ -67,6 +67,7 @@ dependencies {
     implementation ApplicationDeps.androidXPaging
 
     implementation DevelopmentDeps.timber
+    implementation AndroidTestDeps.espressoIdlingResource
 
     testImplementation JvmUnitTestDeps.junit
     testImplementation JvmUnitTestDeps.mockk
@@ -76,8 +77,12 @@ dependencies {
     testImplementation JvmUnitTestDeps.truth
     testImplementation JvmUnitTestDeps.retrofit
 
-    androidTestImplementation 'androidx.test.ext:junit:1.1.1'
-    androidTestImplementation 'androidx.test.espresso:espresso-core:3.2.0'
-    compileOnly 'com.google.android.wearable:wearable:2.5.0'
+    androidTestImplementation AndroidTestDeps.testCore
+    androidTestImplementation AndroidTestDeps.testJunitExt
+    androidTestImplementation AndroidTestDeps.testRule
+    androidTestImplementation AndroidTestDeps.espressoCore
+    androidTestImplementation AndroidTestDeps.mockwebserver
+    androidTestImplementation AndroidTestDeps.okhttp3_idling_resource
+
 
 }

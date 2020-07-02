@@ -1,17 +1,20 @@
 package com.android.omdb.features.movie.di
 
+import android.content.Context
+import com.android.omdb.App
 import com.android.omdb.BuildConfig
 import com.android.omdb.features.movie.data.source.OmdbApiService
 import okhttp3.Interceptor
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
+import org.koin.android.ext.koin.androidContext
 import org.koin.dsl.module
 import retrofit2.Retrofit
 import retrofit2.converter.moshi.MoshiConverterFactory
 
 val appModule = module {
     single { provideOkHttpClient() }
-    single { provideRetrofit(get(), BuildConfig.BASE_URL) }
+    single { provideRetrofit(get(), androidContext()) }
     single { provideOmdbApiService(get()) }
 }
 
@@ -45,13 +48,15 @@ private val authInterceptor = Interceptor { chain ->
 
 private fun provideRetrofit(
     okHttpClient: OkHttpClient,
-    BASE_URL: String
+    context: Context
 ): Retrofit =
     Retrofit.Builder()
         .addConverterFactory(MoshiConverterFactory.create())
-        .baseUrl(BASE_URL)
+        .baseUrl((context.applicationContext as App).baseUrl)
         .client(okHttpClient)
         .build()
 
 private fun provideOmdbApiService(retrofit: Retrofit): OmdbApiService =
     retrofit.create(OmdbApiService::class.java)
+
+//https://medium.com/@wingoku/synchronizing-espresso-with-custom-threads-using-idling-resource-retrofit-70439ad2f07

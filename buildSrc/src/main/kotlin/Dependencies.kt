@@ -22,7 +22,7 @@ object Versions {
     val androidXPaging = "3.0.0-alpha02"
 
     val junit = "4.12"
-    val androidXTestEspresso = "3.1.0"
+    val androidXTestEspresso = "3.2.0"
     val androidXTestCore = "1.2.0"
     val androidXTestExtKotlinRunner = "1.1.1"
     val androidXTestRules = "1.2.0"
@@ -68,6 +68,10 @@ object Versions {
     val glide = "4.11.0"
 
     val koin = "2.1.6"
+
+    val mockwebserver = "4.6.0"
+
+    val okhttp3_idling_resource = "1.0.0"
 }
 
 
@@ -202,6 +206,8 @@ object AndroidTestDeps {
     val fragmentTest = "androidx.fragment:fragment-testing:${Versions.androidXFragment}"
     val testCorePlain = "androidx.test:core:${Versions.androidXTestCore}"
 
+    val mockwebserver ="com.squareup.okhttp3:mockwebserver:${Versions.mockwebserver}"
+    val okhttp3_idling_resource = "com.jakewharton.espresso:okhttp3-idling-resource:${Versions.okhttp3_idling_resource}"
 
 }
 
