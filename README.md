@@ -50,3 +50,5 @@
 - App asset generator - https://romannurik.github.io/AndroidAssetStudio/index.html
 - Splash Screen - https://medium.com/@shishirthedev/the-right-way-to-implement-a-splash-screen-in-android-acae0e52949a
 - Paging - https://blog.hipolabs.com/api-search-with-pagination-for-android-development-in-2020-f47717fb34ac
+
+
